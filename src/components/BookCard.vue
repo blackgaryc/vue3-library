@@ -62,14 +62,22 @@ export default {
 .book-card .text-box {
     height: 0;
     padding-bottom: 125%;
+    border: 2px #000405;
+    position: relative;
 }
 
 .book-card .text-box .book-title {
-    margin: 30px 10px 20% 10px;
+    margin: 30px 10px 0px 10px;
 }
 
 .book-card .text-box .box-item {
     width: 110px;
     margin-top: 10px;
+}
+
+.book-card .text-box .book-authors {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
 }
 </style>
