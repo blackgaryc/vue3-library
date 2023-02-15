@@ -3,7 +3,10 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-  <router-view/>
+  <el-row class="row-bg" justify="center">
+    <el-col :xs="24" :sm="24" :md="20" :lg="16" :xl="16"> <router-view />
+    </el-col>
+  </el-row>
 </template>
 
 <style>
