@@ -1,10 +1,12 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">主页</router-link> |
+    <!-- <router-link to="/about">关于</router-link> -->
+    <router-link to="/login">登陆</router-link>
   </nav>
   <el-row class="row-bg" justify="center">
-    <el-col :xs="24" :sm="24" :md="20" :lg="16" :xl="16"> <router-view />
+    <el-col :xs="24" :sm="24" :md="20" :lg="16" :xl="16">
+      <router-view />
     </el-col>
   </el-row>
 </template>
@@ -31,3 +33,10 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script>
+export default {
+  name: 'App',
+  methods: {
+  }
+}
+</script>

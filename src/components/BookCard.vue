@@ -1,6 +1,6 @@
 <template>
     <el-card :body-style="{ padding: '0px', border: '0px' }" class="book-card">
-        <div v-if="thumbnail">
+        <div v-if="thumbnail && thumbnail.length>0">
             <el-skeleton style="" animated :loading="loading">
                 <template #template>
                     <el-skeleton-item variant="image" style="height: 150px;">
@@ -15,13 +15,13 @@
         </div>
         <div class="text-box" v-else>
             <div>
-                <p class="book-title">{{ title }}</p>
+                <p class="book-title">{{ title.substring(0, title.length > 16 ? 16 : title.length - 1) }}</p>
                 <div>
                     <!-- <el-tooltip class="box-item" content="" placement="top">
-                            <p class="book-authors">
-                                {{ authorList }}
-                            </p>
-                        </el-tooltip> -->
+                                <p class="book-authors">
+                                    {{ authorList }}
+                                </p>
+                            </el-tooltip> -->
                     <p class="book-authors">
                         {{ authorList }}
                     </p>
@@ -103,6 +103,7 @@ export default {
 
 .book-card .text-box .book-title {
     margin: 30px 10px 0px 10px;
+    font-size: 0.7em;
 }
 
 .book-card .text-box .box-item {
@@ -114,5 +115,6 @@ export default {
     position: absolute;
     width: 100%;
     bottom: 0px;
+    font-size: 0.8em;
 }
 </style>
