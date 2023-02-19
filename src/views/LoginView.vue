@@ -17,6 +17,7 @@
 import router from "@/router"
 import { ElMessage } from 'element-plus'
 import axios from "axios"
+import store from "@/store"
 
 export default {
     name: 'LoginView',
@@ -36,6 +37,7 @@ export default {
             axios.post('/api/user/login', form).then((response) => {
                 console.log(response)
                 if (0 === response.data.code) {
+                    store.dispatch('isLoggedIn',true)
                     ElMessage({
                         message: response.data.message,
                         type: 'success',

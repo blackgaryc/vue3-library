@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -20,6 +21,9 @@ const routes = [
   {
     path: '/user',
     name: 'user',
+    meta: {
+      requiresAuth: true
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -27,7 +31,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/UserView.vue'),
   },
   {
-    path: '/user/info', name: 'user_info', component: () => import(/* webpackChunkName: "about" */ '../views/UserInfoEditView.vue')
+    path: '/user/info',
+    name: 'user_info',
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import(/* webpackChunkName: "about" */ '../views/UserInfoEditView.vue'),
+
   },
   {
     path: '/about',
@@ -43,5 +53,20 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!store.getters.isLoggedIn) {
+      next({ name: 'login' })
+    } else {
+      next() // go to wherever I'm going
+    }
+  } else {
+    next() // does not require auth, make sure to always call next()!
+  }
+})
+
 
 export default router

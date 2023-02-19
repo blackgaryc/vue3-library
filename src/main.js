@@ -8,6 +8,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import MasonryWall from '@yeger/vue-masonry-wall'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import store from './store'
 
 axios.defaults.baseURL='http://library.v2ry.top'
 
@@ -15,7 +16,7 @@ const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }
-  
+app.use(store)
 app.use(VueAxios, axios)
 app.provide('axios', app.config.globalProperties.axios) 
 app.use(MasonryWall)
