@@ -15,7 +15,7 @@
         </div>
         <div class="text-box" v-else>
             <div>
-                <p class="book-title">{{ title.substring(0, title.length > 16 ? 16 : title.length - 1) }}</p>
+                <p class="book-title">{{ title.substring(0, title.length > 16 ? 16 : title.length) }}</p>
                 <div>
                     <!-- <el-tooltip class="box-item" content="" placement="top">
                                 <p class="book-authors">

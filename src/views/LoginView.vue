@@ -15,6 +15,7 @@
 
 <script>
 import router from "@/router"
+import { ElMessage } from 'element-plus'
 import axios from "axios"
 
 export default {
@@ -27,16 +28,21 @@ export default {
             form: {
                 account: '',
                 password: ''
-            }   
+            }
         }
     }, methods: {
         submitForm: (form) => {
             console.log(form)
-            axios.post('/api/user/login',form).then((response) => {
+            axios.post('/api/user/login', form).then((response) => {
                 console.log(response)
-                if(0 === response.data.code){
-                    router.push({path:'/'})
-                }else{
+                if (0 === response.data.code) {
+                    ElMessage({
+                        message: response.data.message,
+                        type: 'success',
+                    })
+                    setTimeout(2000)
+                    router.push({ path: '/' })
+                } else {
                     alert(response.data.message)
                 }
             })
