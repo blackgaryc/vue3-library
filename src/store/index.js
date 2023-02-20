@@ -4,10 +4,10 @@ const store = createStore({
     return {
       count: 0,
       user: {
-        nickname:'昵称',
-        avatar: '头像url',
-        login:{
-          status:false
+        nickname: '昵称',
+        avatar: '',
+        login: {
+          status: false
         }
       }
 
@@ -18,12 +18,25 @@ const store = createStore({
       state.count++
     },
     doLoginSuccess(state) {
-      state.user.login.status=true
+      state.user.login.status = true
+    },
+    updateUserInfo(state, { nickname,avatar }){
+      state.user.nickname = nickname;
+      state.user.avatar = avatar;
     }
   },
-  getters:{
-    isLoggedIn(state){
+  getters: {
+    isLoggedIn(state) {
       return state.user.login.status;
+    },
+    getUserAcatar(state) {
+      return state.user.avatar
+    },
+    getUserNickname(state) {
+      return state.user.nickname
+    },
+    getUser(state) {
+      return state.user
     }
   }
 })

@@ -68,7 +68,6 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!store.getters.isLoggedIn) {
-      console.log(store.getters.isLoggedIn)
       next({ name: 'login' })
     } else {
       next() // go to wherever I'm going
@@ -80,6 +79,5 @@ router.beforeEach((to, from, next) => {
     next() // does not require auth, make sure to always call next()!
   }
 })
-
 
 export default router

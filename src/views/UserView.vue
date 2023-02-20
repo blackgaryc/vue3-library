@@ -2,9 +2,9 @@
     <div class="library-user-view">
         <div class="user-acatar-div" @click="redirect('/user/info')">
             <div class="user-acatar-image">
-                <el-avatar size="large" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+                <el-avatar size="large" :src="computedUserAvatar" />
             </div>
-            <p class="user-acatar-name">{{ 'username' }}</p>
+            <p class="user-acatar-name">{{ computedUserNicknae }}</p>
         </div>
         <!-- <el-divider /> -->
         <!-- <div class="user-tiny-menu-div">
@@ -122,6 +122,7 @@
 import BookCard from "@/components/BookCard.vue";
 import MoreCard from "@/components/MoreCard.vue";
 import router from "@/router"
+import store from "@/store";
 
 export default {
     name: "UserView",
@@ -136,7 +137,18 @@ export default {
             router.push({ path: url });
         }
     },
-    components: { BookCard, MoreCard }
+    components: { BookCard, MoreCard },
+    computed:{
+        computedUserAvatar() {
+            return store.getters.getUserAcatar
+        },
+        computedUserNicknae() {
+            return store.getters.getUserNickname
+        },
+        computedUserLoginStatus(){
+            return store.getters.isLoggedIn
+        }
+    }
 }
 </script>
 

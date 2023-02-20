@@ -22,16 +22,15 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
     name: 'HeaderMenu',
     methods: {
         handleSelect: function (key, keyPath) {
-            console.log(key, keyPath)
+            keyPath
             if(this.menu[key]&&this.menu[key].name)
             this.$router.push({name:this.menu[key].name})
-        },
-        handleClick(item) {
-            console.log(item)
         }
     },
     props: {
@@ -39,10 +38,10 @@ export default {
     },
     computed: {
         computedUserAvatar() {
-            if (this.userAvatar && this.userAvatar.length > 0) {
-                return this.userAvatar
-            }
-            return 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+            return store.getters.getUserAcatar.length > 0 ? store.getters.getUserAcatar : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+        },
+        computedUserNicknae() {
+            return store.getters.getUserNickname
         }
     },
     data: () => {
