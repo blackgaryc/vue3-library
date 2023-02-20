@@ -1,14 +1,15 @@
 <template>
-    <el-form label-position="right" label-width="100px" :model="form">
-        <el-form-item label="account">
+    <el-form label-position="right" label-width="60px" :model="form">
+        <el-form-item label="帐号">
             <el-input v-model="form.account" />
         </el-form-item>
-        <el-form-item label="password">
+        <el-form-item label="密码">
             <el-input v-model="form.password" />
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submitForm(form)">Submit</el-button>
-            <el-button @click="resetForm(form)">Reset</el-button>
+            <el-button type="primary" @click="submitForm(form)">登陆</el-button>
+            <el-button @click="resetForm(form)">重置</el-button>
+            <el-button @click="resetForm(form)">注册</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -37,7 +38,7 @@ export default {
             axios.post('/api/user/login', form).then((response) => {
                 console.log(response)
                 if (0 === response.data.code) {
-                    store.dispatch('isLoggedIn',true)
+                    store.commit('doLoginSuccess')
                     ElMessage({
                         message: response.data.message,
                         type: 'success',

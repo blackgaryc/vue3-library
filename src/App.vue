@@ -1,12 +1,13 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">主页</router-link> |
-    <!-- <router-link to="/about">关于</router-link> -->
-    <router-link to="/login">登陆</router-link>
-  </nav>
+    <router-link to="/user" v-if="this.$store.getters.isLoggedIn">username</router-link>
+    <router-link to="/login" v-else>登陆</router-link>
+  </nav> -->
+  <HeaderMenu></HeaderMenu>
   <el-row class="row-bg" justify="center">
     <el-col :xs="24" :sm="24" :md="20" :lg="16" :xl="16">
-      <router-view />
+      <router-view style=" margin-top: 50px;" />
     </el-col>
   </el-row>
 </template>
@@ -34,9 +35,22 @@ nav a.router-link-exact-active {
 }
 </style>
 <script>
+import { inject } from 'vue';
+import HeaderMenu from './components/HeaderMenu.vue';
+import store from './store';
 export default {
-  name: 'App',
-  methods: {
-  }
+    name: "App",
+    methods: {},
+    setup() {
+        const $cookies = inject("$cookies");
+        const token = "token";
+        if (localStorage.getItem(token) || $cookies.get(token)) {
+            //检查login status
+            //get
+            //设置store登陆状态
+            store.commit("doLoginSuccess");
+        }
+    },
+    components: { HeaderMenu }
 }
 </script>

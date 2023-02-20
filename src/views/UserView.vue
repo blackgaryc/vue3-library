@@ -8,45 +8,45 @@
         </div>
         <!-- <el-divider /> -->
         <!-- <div class="user-tiny-menu-div">
-            <el-row justify="center">
-                <el-col :xs="20" :sm="12" :md="8" :lg="8" :xl="8">
-                    <el-row :gutter="10">
-                        <el-col class="user-tiny-menu-div-col" :span="6">
-                            <div @click="redirect('/user/history/download')">
-                                <el-icon>
-                                    <Download />
-                                </el-icon>
-                                <p>下载历史</p>
-                            </div>
-                        </el-col>
-                        <el-col class="user-tiny-menu-div-col" :span="6">
-                            <div @click="redirect('/user/favorite/book')">
-                                <el-icon>
-                                    <StarFilled />
-                                </el-icon>
-                                <p>喜欢的书</p>
-                            </div>
-                        </el-col>
-                        <el-col class="user-tiny-menu-div-col" :span="6">
-                            <div @click="redirect('/user/booklist')">
-                                <el-icon>
-                                    <Collection />
-                                </el-icon>
-                                <p>我的书单</p>
-                            </div>
-                        </el-col>
-                        <el-col class="user-tiny-menu-div-col" :span="6">
-                            <div @click="redirect('/user/bookrequest')">
-                                <el-icon>
-                                    <DocumentAdd />
-                                </el-icon>
-                                <p>我的请求</p>
-                            </div>
-                        </el-col>
-                    </el-row>
-                </el-col>
-            </el-row>
-        </div> -->
+                <el-row justify="center">
+                    <el-col :xs="20" :sm="12" :md="8" :lg="8" :xl="8">
+                        <el-row :gutter="10">
+                            <el-col class="user-tiny-menu-div-col" :span="6">
+                                <div @click="redirect('/user/history/download')">
+                                    <el-icon>
+                                        <Download />
+                                    </el-icon>
+                                    <p>下载历史</p>
+                                </div>
+                            </el-col>
+                            <el-col class="user-tiny-menu-div-col" :span="6">
+                                <div @click="redirect('/user/favorite/book')">
+                                    <el-icon>
+                                        <StarFilled />
+                                    </el-icon>
+                                    <p>喜欢的书</p>
+                                </div>
+                            </el-col>
+                            <el-col class="user-tiny-menu-div-col" :span="6">
+                                <div @click="redirect('/user/booklist')">
+                                    <el-icon>
+                                        <Collection />
+                                    </el-icon>
+                                    <p>我的书单</p>
+                                </div>
+                            </el-col>
+                            <el-col class="user-tiny-menu-div-col" :span="6">
+                                <div @click="redirect('/user/bookrequest')">
+                                    <el-icon>
+                                        <DocumentAdd />
+                                    </el-icon>
+                                    <p>我的请求</p>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+                </el-row>
+            </div> -->
         <el-divider />
         <div class="user-collapse-menu-div">
             <el-collapse v-model="activeNames">
@@ -136,11 +136,15 @@ export default {
             router.push({ path: url });
         }
     },
-    components: { BookCard,MoreCard }
+    components: { BookCard, MoreCard }
 }
 </script>
 
 <style>
+.user-acatar-div {
+    /* margin-top: 50px; */
+}
+
 .library-user-view .little-menu-row {
     margin: 20px;
 }
@@ -160,4 +164,5 @@ export default {
     margin: 0px;
     font-size: 0.8rem;
 
-}</style>
+}
+</style>
