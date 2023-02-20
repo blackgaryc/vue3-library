@@ -1,5 +1,5 @@
 <template>
-    <el-menu :default-active="'1'" class="page-menu" mode="horizontal" :ellipsis="false" @select="handleSelect">
+    <el-menu :default-active="'-1'" class="page-menu" mode="horizontal" :ellipsis="false" @select="handleSelect">
         <el-menu-item index="0">
             <div class="user-avatar-div"><el-avatar class="user-avatar" :size="''" :src="computedUserAvatar" /></div>
         </el-menu-item>
