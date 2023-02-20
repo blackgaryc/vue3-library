@@ -40,6 +40,15 @@ const routes = [
 
   },
   {
+    path: '/user/register',
+    name: 'register',
+    meta: {
+      requiresAuth: false
+    },
+    component: () => import(/* webpackChunkName: "about" */ '../views/UserRegister.vue'),
+
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting

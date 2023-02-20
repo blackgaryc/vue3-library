@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>asdasd</h1>
+        <h1>用户信息查看编辑页面</h1>
     </div>
 </template>
 
