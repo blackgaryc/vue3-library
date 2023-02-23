@@ -9,14 +9,14 @@
         <el-sub-menu index="2">
             <template #title>其他</template>
             <el-menu-item index="2-1">探索</el-menu-item>
-            <el-menu-item index="2-2">贡献</el-menu-item>
+            <!-- <el-menu-item index="2-2">贡献</el-menu-item> -->
             <el-menu-item index="2-3">项目</el-menu-item>
-            <!-- <el-sub-menu index="2-4">
-                                    <template #title>test</template>
-                                    <el-menu-item index="2-4-1">item one</el-menu-item>
-                                    <el-menu-item index="2-4-2">item two</el-menu-item>
-                                    <el-menu-item index="2-4-3">item three</el-menu-item>
-                                </el-sub-menu> -->
+            <el-sub-menu index="2-2">
+                <template #title>贡献</template>
+                <el-menu-item index="2-4-1">上传</el-menu-item>
+                <el-menu-item index="2-4-2">修改</el-menu-item>
+                <el-menu-item index="2-4-3">建议</el-menu-item>
+            </el-sub-menu>
         </el-sub-menu>
     </el-menu>
 </template>
@@ -29,8 +29,8 @@ export default {
     methods: {
         handleSelect: function (key, keyPath) {
             keyPath
-            if(this.menu[key]&&this.menu[key].name)
-            this.$router.push({name:this.menu[key].name})
+            if (this.menu[key] && this.menu[key].name)
+                this.$router.push({ name: this.menu[key].name })
         }
     },
     props: {
@@ -52,6 +52,9 @@ export default {
                 },
                 '1': {
                     name: 'home'
+                },
+                '2-4-1': {
+                    name: 'uploader'
                 }
             }
         }

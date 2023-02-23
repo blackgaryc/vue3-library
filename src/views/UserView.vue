@@ -155,6 +155,7 @@ export default {
 <style>
 .user-acatar-div {
     /* margin-top: 50px; */
+    text-align: center;
 }
 
 .library-user-view .little-menu-row {

@@ -12,7 +12,7 @@
             <el-button @click="resetForm(form)">注册</el-button>
         </el-form-item>
     </el-form>
-    <div v-else>
+    <div class="user-already-login" v-else>
         <p>已经登陆</p>
         <div class="user-acatar-div" @click="redirect('/user/info')">
             <div class="user-acatar-image">
@@ -43,7 +43,7 @@ export default {
             }
         }
     }, methods: {
-        submitForm: (form) => {
+        submitForm(form){
             console.log(form)
             axios.post('/api/user/login', form).then((response) => {
                 console.log(response)
@@ -59,7 +59,13 @@ export default {
                         type: 'success',
                     })
                     setTimeout(2000)
-                    router.push({ path: '/' })
+                    const last_login_process_url = localStorage.getItem('last_login_process_url')
+                    if(last_login_process_url){
+                        localStorage.removeItem('last_login_process_url')
+                        this.$router.push({path:last_login_process_url})
+                    }else{
+                        router.push({ name: 'home' })
+                    }
                 } else {
                     alert(response.data.message)
                 }
@@ -83,3 +89,9 @@ export default {
 }
 
 </script>
+
+<style>
+.user-already-login {
+    text-align: center;
+}
+</style>

@@ -73,5 +73,8 @@ export default {
 .home-search .title {
   font-size: 3rem;
 }
+h1 {
+  text-align: center;
+}
 </style>
 

@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="item-align-center">
         <h3>用户信息</h3>
         <el-form ref="form" :model="userinfo" label-width="auto" label-position="left">
             <el-form-item label="头像">
                 <el-upload class="avatar-uploader" style="width: 50%;" :show-file-list="false" action="/api/file/upload" :disabled="!edit"
-                    :on-success="handleAvatarSuccess" :auto-upload="true" :data="{ 'type': 'user_info_avatar' }"
+                    :on-success="handleAvatarSuccess" :auto-upload="true" :data="{ 'type': 'user_info_avatar_MD5_FILENAME' }"
                     :before-upload="beforeAvatarUpload">
                     <el-image v-if="userinfo.avatar" :src="userinfo.avatar" class="avatar" />
                     <el-icon v-else class="avatar-uploader-icon">
@@ -86,3 +86,9 @@ export default {
     }
 }
 </script>
+
+<style>
+.item-align-center {
+    text-align: center;
+}
+</style>

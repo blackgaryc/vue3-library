@@ -49,6 +49,25 @@ const routes = [
 
   },
   {
+    path: '/file/upload',
+    name: 'uploader',
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import(/* webpackChunkName: "about" */ '../views/UploadBookView.vue'),
+
+
+  }
+  ,
+  {
+    path: '/book/:id',
+    name: 'book_detail',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/BookDetailView.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
@@ -68,12 +87,13 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!store.getters.isLoggedIn) {
+      localStorage.setItem("last_login_process_url",to.fullPath)
       next({ name: 'login' })
     } else {
       next() // go to wherever I'm going
     }
   } else {
-    if(to.name==='login' && store.getters.isLoggedIn){
+    if (to.name === 'login' && store.getters.isLoggedIn) {
       next({ name: 'home' })
     }
     next() // does not require auth, make sure to always call next()!
