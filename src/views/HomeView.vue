@@ -38,7 +38,7 @@ export default {
   },
   mounted: function () {
     //TODO recommand
-    axios.get('/api/book/search?data=中国').then((response) => {
+    axios.get('api/book/latest').then((response) => {
       if (response.data.code === 0) {
         const dataList = response.data.data
         this.books = [...dataList]

@@ -1,17 +1,20 @@
 <template>
     <el-card :body-style="{ padding: '0px', border: '0px' }" class="book-card">
-        <div v-if="thumbnail && thumbnail.length>0">
+
+        <div v-if="showImage">
             <el-skeleton style="" animated :loading="loading">
                 <template #template>
                     <el-skeleton-item variant="image" style="height: 150px;">
-                        <!-- <el-image :src="thumbnail" @load="onImgLoad"></el-image> -->
+
                     </el-skeleton-item>
                 </template>
                 <template #default>
-                    <img :src="thumbnail" class="book-image" @load="onImgLoad" />
-                    <!-- <el-image :src="thumbnail" @load="onImgLoad"></el-image> -->
+                    <img :src="thumbnail" class="book-image" />
                 </template>
             </el-skeleton>
+            <div style="height: 0px;">
+                <el-image :src="thumbnail" @load="onImgLoad"></el-image>
+            </div>
         </div>
         <div class="text-box" v-else>
             <div>
@@ -39,11 +42,13 @@ export default {
         thumbnail: String,
         authors: Array,
         title: String,
-        max_authors_length: Number
+        max_authors_length: Number,
+        index: Number
     },
     data() {
         return {
-            loading: true
+            loading: true,
+            showImage: true
         }
     },
     computed: {
@@ -63,22 +68,26 @@ export default {
         }
     },
     methods: {
+        //延迟最大不要超过5000
         onImgLoad() {
-            console.log("image load")
-            this.loading = false;
+            let timeout = this.index ? this.index : 1;
+            setTimeout(() => {
+                this.loading = false
+            }, timeout < 50 ? 120 * timeout : 5000)
         }
     },
     mounted() {
-        // if (this.height === undefined) {
-        //     this.heightValue = (this.$refs.root.$el.clientWidth / 16 * 9) + "px";
-        // }
-        if (this.thumbnail) {
-            let img = new Image();
-            img.onload = () => {
-                this.loading = false;
-            };
-            img.src = this.thumbnail;
-        }
+        //延迟400去检查缩略图是否存在，如果不存在则取消加载图片
+        setTimeout(() => {
+            if (!this.thumbnail || this.thumbnail.length <= 0) {
+                this.showImage = false;
+            }
+        }, 400)
+        //如果图片8000ms后还没有加载成功，则取消加载图片
+        setTimeout(() => {
+            if (this.loading === true)
+                this.showImage = false;
+        }, 8000)
     },
 }
 </script>
