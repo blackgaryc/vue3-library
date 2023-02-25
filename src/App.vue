@@ -1,10 +1,16 @@
 <template>
   <HeaderMenu :userAvatar="this.$store.getters.getUserAcatar"></HeaderMenu>
+
+  
   <el-row class="row-bg" justify="center">
     <el-col :xs="24" :sm="24" :md="20" :lg="16" :xl="16">
-      <router-view style=" margin-top: 50px;" />
+      <router-view style=" margin-top: 15px;" />
     </el-col>
   </el-row>
+
+
+
+  <!-- message box  -->
   <div>
     <el-row justify="end">
       <el-col :span="4">
