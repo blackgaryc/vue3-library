@@ -54,7 +54,17 @@
                 </el-form>
             </div>
         </div>
-        <el-button style="margin-top: 20px;width: 100%;" @click="next">{{ active < 2 ? '下一步' : '完成' }}</el-button>
+        <div style="margin-top: 20px;width: 100%;">
+            <el-row :gutter="20" justify="center">
+                <el-col :span="getPreButtonSpan"><el-button style="width: 100%;" @click="pre">
+                        上一步</el-button>
+                </el-col>
+                <el-col :span="getNextButtonSpan">
+                    <el-button style="width: 100%;" @click="next">
+                        {{ active < 2 ? '下一步' : '完成' }} </el-button>
+                </el-col>
+            </el-row>
+        </div>
     </div>
 </template>
 
@@ -78,6 +88,11 @@ export default {
         }
     },
     methods: {
+        pre: function () {
+            if (this.active > 0) {
+                this.active--
+            }
+        },
         next: function () {
             switch (this.active) {
                 case 0:
@@ -99,7 +114,7 @@ export default {
                             type: 'EMAIL'
                         }).then((res) => {
                             if (res.data.code == 0) {
-                                localStorage.setItem("must_reload",'true')
+                                localStorage.setItem("must_reload", 'true')
                                 this.$router.push({
                                     name: 'home', params: {
                                         reload: true
@@ -138,7 +153,7 @@ export default {
                 if (res.data.code === 0) {
                     this.mailSendTimes++
                     this.mailSendButtonDisabled = true
-                    this.mailSendTimeLimit = Date.now() + 1000 * 10
+                    this.mailSendTimeLimit = Date.now() + 1000 * 60
                     console.log(this.mailSendTimeLimit)
                 } else {
                     ElMessage.error(res.data.message)
@@ -151,6 +166,20 @@ export default {
             this.mailSendButtonDisabled = false
             this.mailSendTimeLimit = null
         },
+    },
+    computed: {
+        getPreButtonSpan: function () {
+            if (this.active == 0) {
+                return 0;
+            }
+            return 10
+        },
+        getNextButtonSpan: function () {
+            if (this.active == 0) {
+                return 24;
+            }
+            return 10
+        }
     }
 }
 </script>
