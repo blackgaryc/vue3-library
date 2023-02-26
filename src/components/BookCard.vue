@@ -73,7 +73,7 @@ export default {
             let timeout = this.index ? this.index : 1;
             setTimeout(() => {
                 this.loading = false
-            }, timeout < 50 ? 120 * timeout : 5000)
+            }, timeout < 50 ? 50 * timeout : 5000)
         }
     },
     mounted() {

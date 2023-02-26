@@ -24,11 +24,24 @@ const routes = [
     meta: {
       requiresAuth: true
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
-    component: () => import(/* webpackChunkName: "about" */ '../views/UserView.vue'),
+    children: [
+      {
+        meta: {
+          requiresAuth: true
+        },
+        path: '',
+        name: 'user_home',
+        component: () => import(/* webpackChunkName: "about" */ '../views/UserView.vue'),
+      },
+      {
+        meta: {
+          requiresAuth: true
+        },
+        path: 'logout',
+        name: 'user_logout',
+        component: () => import(/* webpackChunkName: "AdminBookFileUploadProcessView" */ '../views/UserLogoutView.vue'),
+      },
+    ]
   },
   {
     path: '/user/info',
@@ -39,12 +52,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/UserInfoEditView.vue'),
   },
   {
-    path: '/user/register',
+    path: '/register',
     name: 'register',
     meta: {
       requiresAuth: false
     },
-    component: () => import(/* webpackChunkName: "about" */ '../views/UserRegister.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/RegisterView.vue')
   },
   {
     path: '/admin',
@@ -135,7 +148,12 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!store.getters.isLoggedIn) {
-      localStorage.setItem("last_login_process_url", to.fullPath)
+      let url = to.fullPath
+      // don't set logout url
+      if (url === '/user/logout') {
+        url = '/'
+      }
+      localStorage.setItem("last_login_process_url", url)
       next({ name: 'login' })
     } else {
       next() // go to wherever I'm going

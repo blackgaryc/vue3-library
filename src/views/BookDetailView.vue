@@ -74,6 +74,7 @@
 </template>
 <script>
 import BookCard from '@/components/BookCard.vue';
+import { ElMessage } from 'element-plus';
 import 'element-plus/theme-chalk/display.css'
 
 export default {
@@ -98,7 +99,14 @@ export default {
     },
     methods: {
         handleClick() {
-            window.open('/api/file/download?id='+this.selectedDownloadFile.id,'_blank')
+            this.axios.get('/api/file/download?id='+this.selectedDownloadFile.id).then((res)=>{
+                console.log(res)
+                if(res.data.code!=0){
+                    ElMessage.error(res.data.message)
+                }else{
+                    window.open(res.data.data,'_blank')
+                }
+            })
         },
         goBack() {
             this.$router.push({ name: "home" });

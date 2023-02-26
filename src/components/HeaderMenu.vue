@@ -17,6 +17,7 @@
                 <el-menu-item index="2-4-2">修改</el-menu-item>
                 <el-menu-item index="2-4-3">建议</el-menu-item>
             </el-sub-menu>
+            <el-menu-item index="3" v-if="getLoginStatus">退出登陆</el-menu-item>
         </el-sub-menu>
     </el-menu>
 </template>
@@ -42,19 +43,25 @@ export default {
         },
         computedUserNicknae() {
             return store.getters.getUserNickname
+        },
+        getLoginStatus(){
+            return store.getters.isLoggedIn
         }
     },
     data: () => {
         return {
             menu: {
                 '0': {
-                    name: 'user'
+                    name: 'user_home'
                 },
                 '1': {
                     name: 'home'
                 },
                 '2-4-1': {
                     name: 'uploader'
+                },
+                '3': {
+                    name: 'user_logout'
                 }
             }
         }

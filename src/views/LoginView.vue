@@ -1,26 +1,36 @@
 <template>
-    <el-form label-position="right" label-width="60px" :model="form" v-if="!computedUserLoginStatus">
-        <el-form-item label="帐号">
-            <el-input v-model="form.account" />
-        </el-form-item>
-        <el-form-item label="密码">
-            <el-input v-model="form.password" type="password" />
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="submitForm(form)">登陆</el-button>
-            <el-button @click="resetForm(form)">重置</el-button>
-            <el-button @click="resetForm(form)">注册</el-button>
-        </el-form-item>
-    </el-form>
-    <div class="user-already-login" v-else>
-        <p>已经登陆</p>
-        <div class="user-acatar-div" @click="redirect('/user/info')">
-            <div class="user-acatar-image">
-                <el-avatar size="large" :src="computedUserAvatar" />
+    <div>
+        <el-page-header @back="() => { this.$router.push({ name: 'home' }) }">
+            <template #content>
+                <div class="flex items-center">
+                    <span class="text-large font-600 mr-3">登陆</span>
+                </div>
+            </template>
+        </el-page-header>
+        <div style="margin: 50px;"></div>
+        <el-form label-position="right" label-width="60px" :model="form" v-if="!computedUserLoginStatus">
+            <el-form-item label="帐号">
+                <el-input v-model="form.account" />
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input v-model="form.password" type="password" />
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm(form)">登陆</el-button>
+                <el-button @click="resetForm(form)">重置</el-button>
+                <el-button @click="() => { this.$router.push({ name: 'register' }) }">注册</el-button>
+            </el-form-item>
+        </el-form>
+        <div class="user-already-login" v-else>
+            <p>已经登陆</p>
+            <div class="user-acatar-div" @click="redirect('/user/info')">
+                <div class="user-acatar-image">
+                    <el-avatar size="large" :src="computedUserAvatar" />
+                </div>
+                <p class="user-acatar-name">{{ computedUserNicknae }}</p>
             </div>
-            <p class="user-acatar-name">{{ computedUserNicknae }}</p>
+            <el-button @click="handleContinueView">继续浏览</el-button>
         </div>
-        <el-button>前往主页</el-button>
     </div>
 </template>
 
@@ -42,9 +52,12 @@ export default {
                 password: ''
             }
         }
-    }, methods: {
-        submitForm(form){
+    },
+    methods: {
+        submitForm(form) {
             console.log(form)
+            const key = 'last_login_process_url'
+            // 处理因为刷新登陆的问题，方便直接跳转到上次的url
             axios.post('/api/user/login', form).then((response) => {
                 console.log(response)
                 if (0 === response.data.code) {
@@ -59,20 +72,29 @@ export default {
                         type: 'success',
                     })
                     setTimeout(2000)
-                    const last_login_process_url = localStorage.getItem('last_login_process_url')
-                    if(last_login_process_url){
-                        localStorage.removeItem('last_login_process_url')
-                        this.$router.push({path:last_login_process_url})
-                    }else{
+                    const last_login_process_url = localStorage.getItem(key)
+                    if (last_login_process_url) {
+                        localStorage.removeItem(key)
+                        this.$router.push({ path: last_login_process_url })
+                    } else {
                         router.push({ name: 'home' })
                     }
                 } else {
                     alert(response.data.message)
                 }
             })
-        }, resetForm: (form) => {
+        },
+        resetForm: (form) => {
             form.account = '';
             form.password = '';
+        },
+        handleContinueView: function () {
+            const key = 'last_login_process_url'
+            let url = localStorage.getItem(key)
+            if (url) {
+                localStorage.removeItem(key)
+                this.$router.push({ path: url })
+            }
         }
     },
     computed: {

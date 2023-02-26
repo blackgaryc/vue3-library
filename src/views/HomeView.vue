@@ -37,6 +37,12 @@ export default {
     Search
   },
   mounted: function () {
+    let reload=localStorage.getItem("must_reload")
+    if (reload) {
+      localStorage.removeItem('must_reload')
+      location.reload()
+      return;
+    }
     //TODO recommand
     axios.get('api/book/latest').then((response) => {
       if (response.data.code === 0) {
@@ -61,7 +67,7 @@ export default {
         }
       })
     }
-  }
+  },
 }
 </script>
 
@@ -73,6 +79,7 @@ export default {
 .home-search .title {
   font-size: 3rem;
 }
+
 h1 {
   text-align: center;
 }
