@@ -20,6 +20,9 @@
                 <el-button @click="resetForm(form)">重置</el-button>
                 <el-button @click="() => { this.$router.push({ name: 'register' }) }">注册</el-button>
             </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="doOauth2Login">Github登陆</el-button>
+            </el-form-item>
         </el-form>
         <div class="user-already-login" v-else>
             <p>已经登陆</p>
@@ -95,6 +98,9 @@ export default {
                 localStorage.removeItem(key)
                 this.$router.push({ path: url })
             }
+        },
+        doOauth2Login(){
+            window.location.href='/api/login/oauth2/authorization/github'
         }
     },
     computed: {
