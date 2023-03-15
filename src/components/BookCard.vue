@@ -70,7 +70,7 @@ export default {
     methods: {
         //延迟最大不要超过5000
         onImgLoad() {
-            let timeout = this.index ? this.index : 1;
+            let timeout = this.index ? this.index : 2;
             setTimeout(() => {
                 this.loading = false
             }, timeout < 50 ? 50 * timeout : 5000)

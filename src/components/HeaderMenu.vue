@@ -10,7 +10,12 @@
             <template #title>其他</template>
             <el-menu-item index="2-1">探索</el-menu-item>
             <!-- <el-menu-item index="2-2">贡献</el-menu-item> -->
-            <el-menu-item index="2-3">项目</el-menu-item>
+            <el-sub-menu index="2-3">
+                <template #title>项目</template>
+                <el-menu-item index="2-3-1">图书分类</el-menu-item>
+                <el-menu-item index="2-3-2">出版社列表</el-menu-item>
+                <el-menu-item index="2-3-3">关于项目</el-menu-item>
+            </el-sub-menu>
             <el-sub-menu index="2-2">
                 <template #title>贡献</template>
                 <el-menu-item index="2-4-1">上传</el-menu-item>
@@ -44,7 +49,7 @@ export default {
         computedUserNicknae() {
             return store.getters.getUserNickname
         },
-        getLoginStatus(){
+        getLoginStatus() {
             return store.getters.isLoggedIn
         }
     },
@@ -59,6 +64,12 @@ export default {
                 },
                 '2-4-1': {
                     name: 'uploader'
+                },
+                '2-3-1': {
+                    name: 'book_classify'
+                },
+                '2-3-2': {
+                    name: 'publisher_list'
                 },
                 '3': {
                     name: 'user_logout'

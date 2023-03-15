@@ -136,6 +136,25 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   }
+  ,
+  {
+    path: '/book/classify',
+    name: 'book_classify',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/BookClassifyView.vue')
+  },
+  {
+    path: '/publishers',
+    name: 'publisher_list',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PublisherListView.vue')
+  },
+  {
+    path: '/publisher/:id',
+    name: 'publisher_details',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PublisherDetailsView.vue')
+  }
 ]
 
 const router = createRouter({
