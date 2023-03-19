@@ -79,19 +79,21 @@
                     </el-row>
                 </el-collapse-item>
                 <el-collapse-item title="喜欢的书" name="2">
-                    <el-row>
-                        <el-col class="fav-item" v-for="(item, index) in favList" :key="item.id" :xs="6" :sm="6" :md="4"
+                    <el-row v-if="favList.length > 0">
+                        <el-col class="fav-item" v-for="(item, index) in favList.filter((v,index)=>{if(index<3) return v})" :key="item.id" :xs="6" :sm="6" :md="4"
                             :lg="4" :xl="3">
-                            <div v-if="index < favList.length - 1">
-                                <BookCard :title="item.bookName" :thumbnail="item.bookImg" @click="toBookDetailsView(item.bookId)"></BookCard>
-                            </div>
-                            <div v-else>
-                                <MoreCard @click="toBookFavEditView">
-                                    <div>编辑</div>
-                                </MoreCard>
+                            <div v-if="index < (favList.length < 4 ? favList.length : favList.length - 1)">
+                                <BookCard :title="item.bookName" :thumbnail="item.bookImg"
+                                    @click="toBookDetailsView(item.bookId)"></BookCard>
                             </div>
                         </el-col>
+                        <el-col class="fav-item" :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
+                            <MoreCard @click="toBookFavEditView">
+                                <div>编辑</div>
+                            </MoreCard>
+                        </el-col>
                     </el-row>
+                    <el-empty v-else :image-size="150" />
                 </el-collapse-item>
                 <el-collapse-item title="我的书单" name="3">
                     <el-empty :image-size="150" />
@@ -135,7 +137,7 @@ export default {
                 }
             })
         },
-        toBookFavEditView(){
+        toBookFavEditView() {
             this.$router.push({
                 name: 'book_favs'
             })
@@ -185,4 +187,5 @@ export default {
     font-size: 0.8rem;
 }
 
-.fav-item {}</style>
+.fav-item {}
+</style>
