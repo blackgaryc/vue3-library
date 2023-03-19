@@ -24,9 +24,11 @@
                         </el-col>
                     </el-row>
                     <div class="hidden-sm-and-up book-like-tool-div">
-                        <el-icon>
-                            <StarFilled :color="liked ? 'read' : 'black'" />
-                        </el-icon>标记喜欢
+                        <div @click="addFav(book.id)">
+                            <el-icon>
+                                <StarFilled :color="liked ? 'read' : 'black'" />
+                            </el-icon>标记喜欢
+                        </div>
                         <el-icon>
                             <Comment />
                         </el-icon>0 条评论
@@ -58,7 +60,8 @@
                     <div style="padding: 10px;">
                         {{ book.description }}
                     </div>
-                    <el-dropdown size="large" split-button type="primary" @click="handleClick" :disabled="this.selectedDownloadFile?false:true">
+                    <el-dropdown size="large" split-button type="primary" @click="handleClick"
+                        :disabled="this.selectedDownloadFile ? false : true">
                         {{ fileDownloadSmallTitle }}
                         <template #dropdown>
                             <el-dropdown-menu>
@@ -99,12 +102,12 @@ export default {
     },
     methods: {
         handleClick() {
-            this.axios.get('/api/file/download?id='+this.selectedDownloadFile.id).then((res)=>{
+            this.axios.get('/api/file/download?id=' + this.selectedDownloadFile.id).then((res) => {
                 console.log(res)
-                if(res.data.code!=0){
+                if (res.data.code != 0) {
                     ElMessage.error(res.data.message)
-                }else{
-                    window.open(res.data.data,'_blank')
+                } else {
+                    window.open(res.data.data, '_blank')
                 }
             })
         },
@@ -120,8 +123,8 @@ export default {
                 } else {
                     this.book = res.data.data
                     this.book.rate = 4.0
-                    if(this.book.file){
-                        this.selectedDownloadFile=this.book.file[0]
+                    if (this.book.file) {
+                        this.selectedDownloadFile = this.book.file[0]
                     }
                 }
             });
@@ -134,6 +137,15 @@ export default {
                 count += 1
             }
             return '(' + file.extension + '/' + (Math.floor(size * 100) / 100) + this.defaultSizeUnit[count] + ')'
+        },
+        addFav(id) {
+            this.axios.post("/api/fav?id=" + id).then((res) => {
+                if (res.data.code == 0) {
+                    ElMessage.success('添加成功')
+                } else {
+                    ElMessage.error(res.data.message)
+                }
+            })
         }
     },
     computed: {

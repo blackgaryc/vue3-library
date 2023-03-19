@@ -2,13 +2,7 @@
     <el-card :body-style="{ padding: '0px', border: '0px' }" class="book-card">
         <div class="text-box">
             <div>
-                <p class="book-title">更多</p>
-                <div>
-                    <p class="book-more">
-                        <el-icon><More /></el-icon>
-                    </p>
-                </div>
-
+                <p class="book-title"><slot></slot></p>
             </div>
         </div>
     </el-card>
@@ -17,8 +11,6 @@
 <script>
 export default {
     name: 'MoreCard',
-    props: {
-    },
     data() {
         return {
             loading: true
@@ -49,7 +41,7 @@ export default {
 
 .book-card .text-box {
     height: 0;
-    padding-bottom: 125%;
+    padding-bottom: 110%;
     border: 2px #000405;
     position: relative;
 }

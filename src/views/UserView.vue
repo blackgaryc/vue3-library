@@ -80,39 +80,25 @@
                 </el-collapse-item>
                 <el-collapse-item title="喜欢的书" name="2">
                     <el-row>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
+                        <el-col class="fav-item" v-for="(item, index) in favList" :key="item.id" :xs="6" :sm="6" :md="4"
+                            :lg="4" :xl="3">
+                            <div v-if="index < favList.length - 1">
+                                <BookCard :title="item.bookName" :thumbnail="item.bookImg" @click="toBookDetailsView(item.bookId)"></BookCard>
+                            </div>
+                            <div v-else>
+                                <MoreCard @click="toBookFavEditView">
+                                    <div>编辑</div>
+                                </MoreCard>
+                            </div>
                         </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <MoreCard></MoreCard>
-                        </el-col>
-
                     </el-row>
                 </el-collapse-item>
                 <el-collapse-item title="我的书单" name="3">
                     <el-empty :image-size="150" />
                 </el-collapse-item>
-                <el-collapse-item title="我的请求" name="4">
+                <!-- <el-collapse-item title="我的请求" name="4">
                     <el-empty :image-size="150" />
-                </el-collapse-item>
+                </el-collapse-item> -->
             </el-collapse>
         </div>
     </div>
@@ -129,25 +115,46 @@ export default {
     data: () => {
         return {
             // activeNames: ["1", "2", "3", "4"]
-            activeNames: []
+            activeNames: [],
+            favList: []
         };
     },
     methods: {
         redirect(url) {
             router.push({ path: url });
+        },
+        getFavList() {
+            this.axios.get("/api/fav?size=4").then((res) => {
+                this.favList = res.data.data
+            })
+        },
+        toBookDetailsView(id) {
+            this.$router.push({
+                name: 'book_detail', params: {
+                    id: id
+                }
+            })
+        },
+        toBookFavEditView(){
+            this.$router.push({
+                name: 'book_favs'
+            })
         }
     },
     components: { BookCard, MoreCard },
-    computed:{
+    computed: {
         computedUserAvatar() {
             return store.getters.getUserAcatar
         },
         computedUserNicknae() {
             return store.getters.getUserNickname
         },
-        computedUserLoginStatus(){
+        computedUserLoginStatus() {
             return store.getters.isLoggedIn
         }
+    },
+    created: function () {
+        this.getFavList()
     }
 }
 </script>
@@ -176,6 +183,6 @@ export default {
     /* border-radius: 5px; */
     margin: 0px;
     font-size: 0.8rem;
-
 }
-</style>
+
+.fav-item {}</style>

@@ -160,7 +160,11 @@ const routes = [
     name: 'ranklist',
     component: () => import(/* webpackChunkName: "rank" */ '../views/RankingListView.vue')
   },
-  
+  {
+    path: '/bookFavs',
+    name: 'book_favs',
+    component: () => import(/* webpackChunkName: "rank" */ '../views/BookFavsView.vue')
+  },
 ]
 
 const router = createRouter({
