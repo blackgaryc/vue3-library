@@ -71,7 +71,7 @@ const routes = [
           requiresAuth: false
         },
         path: '',
-        component: () => import(/* webpackChunkName: "HomeView" */ '../views/admin/HomeView.vue'),
+        component: () => import(/* webpackChunkName: "admin" */ '../views/admin/HomeView.vue'),
       },
       {
         path: 'manage',
@@ -92,7 +92,7 @@ const routes = [
                 },
                 path: '',
                 name: 'manage_book_home_view',
-                component: () => import(/* webpackChunkName: "AdminBookFileUploadProcessView" */ '../views/admin/book/HomeView.vue'),
+                component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/book/HomeView.vue'),
               },
               {
                 meta: {
@@ -100,7 +100,7 @@ const routes = [
                 },
                 path: 'upload',
                 name: 'manage_book_file_upload',
-                component: () => import(/* webpackChunkName: "AdminBookFileUploadProcessView" */ '../views/admin/book/FileUploadProcessView.vue'),
+                component: () => import(/* webpackChunkName: "manage_book_file_upload" */ '../views/admin/book/FileUploadProcessView.vue'),
               }
             ]
           }
@@ -115,7 +115,7 @@ const routes = [
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "UploadBookView" */ '../views/UploadBookView.vue'),
+    component: () => import(/* webpackChunkName: "uploader" */ '../views/UploadBookView.vue'),
 
 
   }
@@ -126,7 +126,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/BookDetailView.vue')
+    component: () => import(/* webpackChunkName: "book_detail" */ '../views/BookDetailView.vue')
   },
   {
     path: '/about',
@@ -143,18 +143,24 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/BookClassifyView.vue')
+    component: () => import(/* webpackChunkName: "book_classify" */ '../views/BookClassifyView.vue')
   },
   {
     path: '/publishers',
     name: 'publisher_list',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PublisherListView.vue')
+    component: () => import(/* webpackChunkName: "publisher_list" */ '../views/PublisherListView.vue')
   },
   {
     path: '/publisher/:id',
     name: 'publisher_details',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PublisherDetailsView.vue')
-  }
+    component: () => import(/* webpackChunkName: "publisher_details" */ '../views/PublisherDetailsView.vue')
+  },
+  {
+    path: '/ranklist',
+    name: 'ranklist',
+    component: () => import(/* webpackChunkName: "rank" */ '../views/RankingListView.vue')
+  },
+  
 ]
 
 const router = createRouter({

@@ -21,6 +21,7 @@
                 <el-menu-item index="2-4-1">上传</el-menu-item>
                 <el-menu-item index="2-4-2">修改</el-menu-item>
                 <el-menu-item index="2-4-3">建议</el-menu-item>
+                <el-menu-item index="2-4-4">排行榜</el-menu-item>
             </el-sub-menu>
             <el-menu-item index="3" v-if="getLoginStatus">退出登陆</el-menu-item>
         </el-sub-menu>
@@ -64,6 +65,9 @@ export default {
                 },
                 '2-4-1': {
                     name: 'uploader'
+                },
+                '2-4-4':{
+                    name: 'ranklist'
                 },
                 '2-3-1': {
                     name: 'book_classify'
