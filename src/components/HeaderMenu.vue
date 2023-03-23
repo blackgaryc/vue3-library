@@ -4,7 +4,6 @@
             <div class="user-avatar-div"><el-avatar class="user-avatar" :size="''" :src="computedUserAvatar" /></div>
         </el-menu-item>
         <div class="flex-grow"></div>
-        <!-- <el-menu-item index="1" @click="handleClick">主页</el-menu-item> -->
         <el-menu-item index="1">主页</el-menu-item>
         <el-sub-menu index="2">
             <template #title>其他</template>
@@ -14,13 +13,13 @@
                 <template #title>项目</template>
                 <el-menu-item index="2-3-1">图书分类</el-menu-item>
                 <el-menu-item index="2-3-2">出版社列表</el-menu-item>
-                <el-menu-item index="2-3-3">关于项目</el-menu-item>
+                <!-- <el-menu-item index="2-3-3">关于项目</el-menu-item> -->
             </el-sub-menu>
             <el-sub-menu index="2-2">
                 <template #title>贡献</template>
                 <el-menu-item index="2-4-1">上传</el-menu-item>
                 <el-menu-item index="2-4-2">修改</el-menu-item>
-                <el-menu-item index="2-4-3">建议</el-menu-item>
+                <!-- <el-menu-item index="2-4-3">建议</el-menu-item> -->
                 <el-menu-item index="2-4-4">排行榜</el-menu-item>
             </el-sub-menu>
             <el-menu-item index="3" v-if="getLoginStatus">退出登陆</el-menu-item>

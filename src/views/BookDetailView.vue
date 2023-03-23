@@ -33,7 +33,6 @@
                             <Comment />
                         </el-icon>0 条评论
                     </div>
-
                 </el-col>
                 <el-col :xs="22" :sm="22" :md="20" :lg="4" :xl="20">
                     <el-descriptions :column="1" :border="true">
@@ -43,8 +42,6 @@
                             </el-tooltip>
                         </el-descriptions-item>
                         <el-descriptions-item label="作者">
-                            <el-link>作者1&nbsp;&nbsp;&nbsp;</el-link>
-                            <el-link>作者1&nbsp;&nbsp;&nbsp;</el-link>
                             <el-link>作者1&nbsp;&nbsp;&nbsp;</el-link>
                         </el-descriptions-item>
 

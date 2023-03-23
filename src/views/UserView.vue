@@ -96,7 +96,9 @@
                     <el-empty v-else :image-size="150" />
                 </el-collapse-item>
                 <el-collapse-item title="我的书单" name="3">
-                    <el-empty :image-size="150" />
+                    <el-empty :image-size="150" v-if="bookList.length==0">
+                        <el-button type="primary" @click="this.$router.push({name:'book_list'})">创建书单</el-button>
+                    </el-empty>
                 </el-collapse-item>
                 <!-- <el-collapse-item title="我的请求" name="4">
                     <el-empty :image-size="150" />
@@ -111,6 +113,7 @@ import BookCard from "@/components/BookCard.vue";
 import MoreCard from "@/components/MoreCard.vue";
 import router from "@/router"
 import store from "@/store";
+import {getUserBookList} from '../api/book-list'
 
 export default {
     name: "UserView",
@@ -118,7 +121,8 @@ export default {
         return {
             // activeNames: ["1", "2", "3", "4"]
             activeNames: [],
-            favList: []
+            favList: [],
+            bookList: []
         };
     },
     methods: {
@@ -157,6 +161,9 @@ export default {
     },
     created: function () {
         this.getFavList()
+        getUserBookList().then((res)=>{
+            console.log(res.data)
+        })
     }
 }
 </script>
