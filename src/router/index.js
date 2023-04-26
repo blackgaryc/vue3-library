@@ -70,43 +70,88 @@ const routes = [
         meta: {
           requiresAuth: false
         },
-        path: '',
+        path: 'home',
         component: () => import(/* webpackChunkName: "admin" */ '../views/admin/HomeView.vue'),
       },
       {
-        path: 'manage',
-        name: 'admin',
         meta: {
           requiresAuth: false
         },
+        path: 'book',
         children: [
           {
             meta: {
               requiresAuth: false
             },
-            path: 'book',
-            children: [
-              {
-                meta: {
-                  requiresAuth: false
-                },
-                path: '',
-                name: 'manage_book_home_view',
-                component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/book/HomeView.vue'),
-              },
-              {
-                meta: {
-                  requiresAuth: false
-                },
-                path: 'upload',
-                name: 'manage_book_file_upload',
-                component: () => import(/* webpackChunkName: "manage_book_file_upload" */ '../views/admin/book/FileUploadProcessView.vue'),
-              }
-            ]
-          }
+            path: 'index',
+            name: 'book_manage',
+            // 图书管理
+            component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/book/index.vue'),
+          },
+          {
+            meta: {
+              requiresAuth: false
+            },
+            path: 'file',
+            name: 'book_file_manage',
+            // 书籍文件管理
+            component: () => import(/* webpackChunkName: "book_file_review" */ '../views/admin/book/FileUploadProcessView.vue'),
+          },
+          {
+            meta: {
+              requiresAuth: false
+            },
+            path: 'file/upload',
+            name: 'book_file_review',
+            // 上传文件审核
+            component: () => import(/* webpackChunkName: "FileUploadProcessView" */ '../views/admin/book/FileUploadProcessView.vue'),
+          },
+          {
+            meta: {
+              requiresAuth: false
+            },
+            path: 'tag',
+            name: 'book_tag_manage',
+            // 标签管理
+            component: () => import(/* webpackChunkName: "book_file_review" */ '../views/admin/book/FileUploadProcessView.vue'),
+          },
+          {
+            meta: {
+              requiresAuth: false
+            },
+            path: 'tag',
+            name: 'book_category_manage',
+            // 分类管理
+            component: () => import(/* webpackChunkName: "book_file_review" */ '../views/admin/book/FileUploadProcessView.vue'),
+          },
+          {
+            meta: {
+              requiresAuth: false
+            },
+            path: 'tag',
+            name: 'book_publisher_manage',
+            // 出版社管理
+            component: () => import(/* webpackChunkName: "book_file_review" */ '../views/admin/book/FileUploadProcessView.vue'),
+          },
         ]
       },
-
+      {
+        meta: {
+          requiresAuth: false
+        },
+        path: 'user',
+        name: 'admin_user_manage',
+        component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/user/index.vue'),
+      },
+      {
+        meta: {
+          requiresAuth: false
+        },
+        path: 'booklist',
+        name: 'admin_booklist_manage',
+        component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/bookList/index.vue'),
+      },
+      
     ]
   },
   {

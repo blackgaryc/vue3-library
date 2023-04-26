@@ -117,7 +117,6 @@
             </el-col>
         </el-row>
         <el-divider />
-        <el-button :size="'large'"><RouterLink :to="{name:'manage_book_file_upload'}">处理上传的文件</RouterLink></el-button>
     </div>
 </template>
 

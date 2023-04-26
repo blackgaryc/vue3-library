@@ -1,15 +1,64 @@
 <template>
-  <HeaderMenu :userAvatar="this.$store.getters.getUserAcatar"></HeaderMenu>
-
-  
-  <el-row class="row-bg" justify="center">
-    <el-col :xs="24" :sm="24" :md="20" :lg="16" :xl="16">
-      <router-view style=" margin-top: 15px;" />
-    </el-col>
-  </el-row>
-
-
-
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <HeaderMenu :userAvatar="this.$store.getters.getUserAcatar"></HeaderMenu>
+      </el-header>
+      <el-container>
+        <el-aside v-if="this.$route.path.startsWith('/admin')" style="width:150px;">
+          <el-scrollbar>
+            <el-menu @select="handleSelect" :router="true">
+              <el-menu-item index="/admin/home"><el-icon>
+                  <setting />
+                </el-icon>主页</el-menu-item>
+              <el-menu-item index="/admin/user"><el-icon>
+                  <setting />
+                </el-icon>用户管理</el-menu-item>
+              <el-sub-menu index="/admin/book">
+                <template #title>
+                  <el-icon>
+                    <location />
+                  </el-icon>
+                  <span>图书管理</span>
+                </template>
+                <el-menu-item-group title="图书">
+                  <el-menu-item index="/admin/book/index">图书管理</el-menu-item>
+                </el-menu-item-group>
+                <el-menu-item-group title="文件">
+                  <el-menu-item index="/admin/book/file">文件管理</el-menu-item>
+                  <el-menu-item index="/admin/book/file/upload">文件审核</el-menu-item>
+                </el-menu-item-group>
+                <el-menu-item-group title="分类">
+                  <el-menu-item index="/admin/tag">标签管理</el-menu-item>
+                  <el-menu-item index="/admin/category">分类管理</el-menu-item>
+                  <el-menu-item index="/admin/publisher">出版社管理</el-menu-item>
+                </el-menu-item-group>
+              </el-sub-menu>
+              <el-menu-item index="/admin/booklist"><el-icon>
+                  <setting />
+                </el-icon>书单管理</el-menu-item>
+              <!-- <el-menu-item index="/admin/search"><el-icon>
+                  <setting />
+                </el-icon>搜索管理</el-menu-item> -->
+              <el-menu-item index="/admin/announcement"><el-icon>
+                  <setting />
+                </el-icon>公告管理</el-menu-item>
+            </el-menu>
+          </el-scrollbar>
+        </el-aside>
+        <el-container>
+          <el-main>
+            <!-- <el-row class="row-bg" justify="center"> -->
+            <!-- <el-col :xs="24" :sm="24" :md="20" :lg="16" :xl="16"> -->
+            <router-view style=" margin-top: 15px;" />
+            <!-- </el-col> -->
+            <!-- </el-row> -->
+          </el-main>
+          <el-footer style="text-align: center;margin-top: 100px;">2023@blackgaryc</el-footer>
+        </el-container>
+      </el-container>
+    </el-container>
+  </div>
   <!-- message box  -->
   <div>
     <el-row justify="end">
@@ -90,8 +139,11 @@ export default {
   },
   components: { HeaderMenu },
   methods: {
-    openMessageDrawer(){
+    openMessageDrawer() {
       this.drawer = true
+    },
+    handleSelect(index, indexPath, item, routeResult) {
+      console.log(index, indexPath, item, routeResult)
     }
   },
   data: function () {
