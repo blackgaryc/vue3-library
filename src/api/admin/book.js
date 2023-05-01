@@ -1,11 +1,17 @@
 import axios from "axios";
 
-//列出当前用户的书单
-export function getListData() {
-    return axios.get("/api/admin/book?size=10")
+//列出所有书籍
+export function getListData(page, size) {
+    let query = ''
+    if (page != undefined && size != undefined) {
+        query = `?page=${page}&size=${size}`
+    }
+    return axios.get("/api/admin/book" + query)
 }
 
-export function deleteItem(id) {
+
+//删除书籍
+export function deleteBook(id) {
     return axios.request(
         {
             url: '/api/admin/book/' + id,
@@ -13,7 +19,8 @@ export function deleteItem(id) {
         })
 }
 
-export function updateItem(id, data) {
+//更新书籍
+export function updateBookInfo(id, data) {
     return axios.request(
         {
             url: '/api/admin/book/' + id,
@@ -21,4 +28,23 @@ export function updateItem(id, data) {
             data: data
         })
 
+}
+
+//获取书籍详情
+export function getBookInfo(id, data) {
+    return axios.request(
+        {
+            url: '/api/admin/book/' + id,
+            method: 'get',
+            data: data
+        })
+
+}
+
+//上下架书籍
+export function changeStatus(id) {
+    return axios.request({
+            url: '/api/admin/book/' + id,
+            method: 'patch'
+        })
 }

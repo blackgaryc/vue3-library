@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span>{{ title }}</span>
+        <div class="admin-page-title">{{ title }}</div>
 
         <!-- 搜索 -->
         <el-form ref="form" :model="form" label-width="auto" style="display: flex;">
@@ -58,10 +58,11 @@
                     </template>
                 </el-table-column>
             </el-table>
-
-            <el-pagination style="margin-top: 10px;" background layout="prev, pager, next"
-                :total="this.table.totalResult" />
-
+            <el-pagination style="margin-top: 10px;" background layout="total, sizes, prev, pager, next, jumper"
+                :default-current-page="1" :page-count="table.totalPage" :page-size="table.size" :current-page="table.page"
+                :total="table.totalResult" :page-sizes="[5, 10, 15, 20, 25, 30, 40]" @update:current-page="pageChange"
+                @update:page-size="pageSizeChange" />
+            <MainForm ref="mainForm"></MainForm>
         </div>
     </div>
 </template>
