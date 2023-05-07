@@ -63,7 +63,7 @@ export default {
                     this.reloadData()
                 })
             }else if(type=='show'){
-                console.log('show')
+                this.$router.push({path:"/booklist/"+data})
             }else if(type=='add'){
                 this.$refs.mainForm.initForm('add')
             }else if(type=='edit'){

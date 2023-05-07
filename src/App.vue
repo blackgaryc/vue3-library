@@ -60,7 +60,7 @@
     </el-container>
   </div>
   <!-- message box  -->
-  <div>
+  <!-- <div>
     <el-row justify="end">
       <el-col :span="4">
         <el-affix position="bottom" :offset="20" style="margin-top: 50px;">
@@ -74,7 +74,7 @@
         </el-affix>
       </el-col>
     </el-row>
-  </div>
+  </div> -->
   <div>
     <el-drawer v-model="drawer" direction="rtl" size="50%">
       <template #header>

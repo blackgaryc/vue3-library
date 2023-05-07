@@ -131,14 +131,18 @@ export default {
                 const data = res.data
                 const messageType = data.code == 0 ? 'success' : 'error';
                 this.$message[messageType](data.message)
+            }).finally(()=>{
+                this.reloadData()
             })
-            this.reloadData()
+            
         },
-        updateItem(id, form) {
-            updateItem(id, form).then(res => {
+        updateItem(id) {
+            updateItem(id).then(res => {
                 const data = res.data
                 const messageType = data.code == 0 ? 'success' : 'error';
                 this.$message[messageType](data.message)
+            }).finally(()=>{
+                this.loadTableData()
             })
         },
         handleBook(requestId, resut) {
