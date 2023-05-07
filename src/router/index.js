@@ -147,6 +147,30 @@ const routes = [
         meta: {
           requiresAuth: false
         },
+        path: 'category',
+        name: 'admin_category_manage',
+        component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/category/index.vue'),
+      },
+      {
+        meta: {
+          requiresAuth: false
+        },
+        path: 'tag',
+        name: 'admin_tag_manage',
+        component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/tag/index.vue'),
+      },
+      {
+        meta: {
+          requiresAuth: false
+        },
+        path: 'publisher',
+        name: 'admin_publisher_manage',
+        component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/publisher/index.vue'),
+      },
+      {
+        meta: {
+          requiresAuth: false
+        },
         path: 'booklist',
         name: 'admin_booklist_manage',
         component: () => import(/* webpackChunkName: "manage_book_home_view" */ '../views/admin/bookList/index.vue'),

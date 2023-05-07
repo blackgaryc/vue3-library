@@ -1,12 +1,13 @@
 <template>
     <div>
-        <el-page-header @back="this.$router.go(-1)">
+        <!-- <el-page-header @back="this.$router.go(-1)">
             <template #content>
                 <div class="flex items-center">
                     <span class="text-large font-600 mr-3">文件处理</span>
                 </div>
             </template>
-        </el-page-header>
+        </el-page-header> -->
+        <div class="admin-page-title">{{ title }}</div>
         <!-- 编辑表格 -->
         <div>
             <el-table :data="tableData.data" style="width: 100%">
@@ -39,6 +40,7 @@ export default {
     name: 'ileUploadProcessView',
     data: function () {
         return {
+            title: "文件审核",
             tableData: []
         }
     },

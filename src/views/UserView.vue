@@ -49,69 +49,15 @@
             </div> -->
         <el-divider />
         <div class="user-collapse-menu-div">
-            <el-collapse v-model="activeNames">
-                <el-collapse-item title="下载历史" name="1">
-                    <el-row>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <BookCard title="a"></BookCard>
-                        </el-col>
-                        <el-col :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <MoreCard></MoreCard>
-                        </el-col>
-                    </el-row>
-                </el-collapse-item>
-                <el-collapse-item title="喜欢的书" name="2">
-                    <el-row v-if="favList.length > 0">
-                        <el-col class="fav-item" v-for="(item, index) in favList.filter((v,index)=>{if(index<3) return v})" :key="item.id" :xs="6" :sm="6" :md="4"
-                            :lg="4" :xl="3">
-                            <div v-if="index < (favList.length < 4 ? favList.length : favList.length - 1)">
-                                <BookCard :title="item.bookName" :thumbnail="item.bookImg"
-                                    @click="toBookDetailsView(item.bookId)"></BookCard>
-                            </div>
-                        </el-col>
-                        <el-col class="fav-item" :xs="6" :sm="6" :md="4" :lg="4" :xl="3">
-                            <MoreCard @click="toBookFavEditView">
-                                <div>编辑</div>
-                            </MoreCard>
-                        </el-col>
-                    </el-row>
-                    <el-empty v-else :image-size="150" />
-                </el-collapse-item>
-                <el-collapse-item title="我的书单" name="3">
-                    <el-empty :image-size="150" v-if="bookList.length==0">
-                        <el-button type="primary" @click="this.$router.push({name:'book_list'})">创建书单</el-button>
-                    </el-empty>
-                </el-collapse-item>
-                <!-- <el-collapse-item title="我的请求" name="4">
-                    <el-empty :image-size="150" />
-                </el-collapse-item> -->
-            </el-collapse>
+            <div class="menu-items" v-for="(item,index) in menuItems" :key="index" @click="redirect(item.url)">
+                <div class="name">{{ item.name }}</div>
+                <div class="icon"><el-icon><ArrowRight /></el-icon></div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import BookCard from "@/components/BookCard.vue";
-import MoreCard from "@/components/MoreCard.vue";
-import router from "@/router"
 import store from "@/store";
 import {getUserBookList} from '../api/book-list'
 
@@ -122,12 +68,21 @@ export default {
             // activeNames: ["1", "2", "3", "4"]
             activeNames: [],
             favList: [],
-            bookList: []
+            bookList: [],
+            menuItems:[
+                {name:'下载历史',url:'/user/book/downloads'},
+                {name:'喜欢的书',url:'/user/book/fav'},
+                {name:'我的书单',url:'/user/bookList'},
+            ],
         };
     },
     methods: {
+        onchange(v){
+            console.log(v)
+        },
         redirect(url) {
-            router.push({ path: url });
+            console.log(url)
+            this.$router.push({ path: url });
         },
         getFavList() {
             this.axios.get("/api/fav?size=4").then((res) => {
@@ -147,7 +102,7 @@ export default {
             })
         }
     },
-    components: { BookCard, MoreCard },
+    components: {  },
     computed: {
         computedUserAvatar() {
             return store.getters.getUserAcatar
@@ -194,5 +149,31 @@ export default {
     font-size: 0.8rem;
 }
 
-.fav-item {}
+.menu-items{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 28px;
+    border-bottom: 1px #cec9c9 solid;
+    margin: 20px 0;
+    box-sizing: border-box;
+    padding: 20px 10px;
+}
+.menu-items:not(:first){
+    border-top: none;
+    
+}
+.menu-items .icon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+}
+.menu-items .name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+}
 </style>

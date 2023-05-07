@@ -3,22 +3,16 @@
         <el-dialog v-model="dialogVisible" :title="title[type]">
             <div>
                 <el-form :model="form" :rules="rules" label-width="120px" status-icon>
-                    <el-form-item label="账户" prop="account">
-                        <el-input v-model="form.account" disabled />
-                    </el-form-item>
-                    <el-form-item label="邮箱" prop="name">
-                        <el-input v-model="form.email" disabled />
-                    </el-form-item>
-                    <el-form-item label="昵称" prop="name">
-                        <el-input v-model="form.nickname" />
+                    <el-form-item label="标签名称" prop="name">
+                        <el-input v-model="form.name" />
                     </el-form-item>
                 </el-form>
             </div>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="dialogVisible = false">取消</el-button>
+                    <el-button @click="dialogVisible = false">Cancel</el-button>
                     <el-button type="primary" @click="submitForm">
-                        确认
+                        Confirm
                     </el-button>
                 </span>
             </template>
@@ -27,7 +21,7 @@
 </template>
 
 <script>
-import { getUserInfo as getInfo, updateUserInfo as updateInfo } from '@/api/admin/user'
+import { gettagInfo as getInfo, updatetagInfo as updateInfo, addItem as addItem } from '@/api/admin/tag'
 import { ElMessage } from 'element-plus'
 
 export default {
@@ -35,8 +29,8 @@ export default {
     data: function () {
         return {
             title: {
-                edit: "编辑用户",
-                add: "添加用户"
+                edit: "编辑标签",
+                add: "添加标签"
             },
             type: '',
             dialogVisible: false,
@@ -70,6 +64,7 @@ export default {
         },
         initAddForm() {
             this.dialogVisible = true
+            this.form = { name: undefined }
         },
         loadOriginData(data) {
             getInfo(data).then(res => {
@@ -77,13 +72,25 @@ export default {
             })
         },
         submitForm() {
-            updateInfo(this.form).then(() => {
-                ElMessage.success('修改成功')
-            }).catch(() => {
-                ElMessage.error('修改失败')
-            })
-            this.dialogVisible = false
-            this.$emit('reloadData')
+            if (this.type == 'edit') {
+                updateInfo(this.form).then(() => {
+                    ElMessage.success('修改成功')
+                }).catch(() => {
+                    ElMessage.error('修改失败')
+                }).finally(() => {
+                    this.dialogVisible = false
+                    this.$emit('reloadData')
+                })
+            } else {
+                addItem(this.form).then(() => {
+                    ElMessage.success('添加成功')
+                }).catch(() => {
+                    ElMessage.error('添加失败')
+                }).finally(() => {
+                    this.dialogVisible = false
+                    this.$emit('reloadData')
+                })
+            }
         }
     }
 }

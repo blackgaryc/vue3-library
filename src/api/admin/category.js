@@ -1,54 +1,64 @@
 import axios from "axios";
 
-//列出所有出版社
+//列出所有分类
 export function getListData(page, size) {
     let query = ''
     if (page != undefined && size != undefined) {
         query = `?page=${page}&size=${size}`
     }
-    return axios.get("/api/admin/publisher" + query)
+    return axios.get("/api/admin/category" + query)
 }
 
 
-//删除出版社
-export function deletePublisher(id) {
+//删除分类
+export function deletecategory(id) {
     return axios.request(
         {
-            url: '/api/admin/publisher/' + id,
+            url: '/api/admin/category/' + id,
             method: 'delete',
         })
 }
 
-//更新出版社
-export function updatePublisherInfo(id, data) {
+//更新分类
+export function updatecategoryInfo(id, data) {
     return axios.request(
         {
-            url: '/api/admin/publisher/' + id,
+            url: '/api/admin/category/' + id,
             method: 'put',
             data: data
         })
 
 }
 
-//更新出版社
-export function getPublisherInfo(id) {
+export function addCategory(data) {
     return axios.request(
         {
-            url: '/api/admin/publisher/' + id,
+            url: '/api/admin/category',
+            method: 'post',
+            data: data
+        })
+
+}
+
+//更新分类
+export function getcategoryInfo(id) {
+    return axios.request(
+        {
+            url: '/api/admin/category/' + id,
             method: 'get'
         })
 
 }
 
-//更新出版社
+//更新分类
 export function changeStatus(id) {
     return axios.request({
-        url: '/api/admin/publisher/' + id,
+        url: '/api/admin/category/' + id,
         method: 'patch'
     })
 }
 
-//获取出版社选择数据
+//获取分类选择数据
 export function getCategorySelectData() {
     return axios.request({
         url: '/api/admin/category/select',

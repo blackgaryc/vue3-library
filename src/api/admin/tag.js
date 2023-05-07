@@ -1,57 +1,66 @@
 import axios from "axios";
 
-//列出所有出版社
+//列出所有标签
 export function getListData(page, size) {
     let query = ''
     if (page != undefined && size != undefined) {
         query = `?page=${page}&size=${size}`
     }
-    return axios.get("/api/admin/publisher" + query)
+    return axios.get("/api/admin/tag" + query)
 }
 
 
-//删除出版社
-export function deletePublisher(id) {
+//删除标签
+export function deletetag(id) {
     return axios.request(
         {
-            url: '/api/admin/publisher/' + id,
+            url: '/api/admin/tag/' + id,
             method: 'delete',
         })
 }
 
-//更新出版社
-export function updatePublisherInfo(id, data) {
+export function addItem(data) {
     return axios.request(
         {
-            url: '/api/admin/publisher/' + id,
+            url: '/api/admin/tag',
+            method: 'post',
+            data: data
+        })
+}
+
+//更新标签
+export function updatetagInfo(data) {
+    return axios.request(
+        {
+            url: '/api/admin/tag/' + data.id,
             method: 'put',
             data: data
         })
 
 }
 
-//更新出版社
-export function getPublisherInfo(id) {
+//更新标签
+export function gettagInfo(id) {
     return axios.request(
         {
-            url: '/api/admin/publisher/' + id,
+            url: '/api/admin/tag/' + id,
             method: 'get'
         })
 
 }
 
-//更新出版社
+//更新标签
 export function changeStatus(id) {
     return axios.request({
-            url: '/api/admin/publisher/' + id,
-            method: 'patch'
-        })
+        url: '/api/admin/tag/' + id,
+        method: 'patch'
+    })
 }
 
-//获取出版社选择数据
+//获取标签选择数据
 export function getTagSelectData() {
     return axios.request({
-            url: '/api/admin/tag/select',
-            method: 'get'
-        })
+        url: '/api/admin/tag/select',
+        method: 'get'
+    })
 }

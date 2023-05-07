@@ -19,6 +19,15 @@ export function deletePublisher(id) {
         })
 }
 
+export function addPublisher(data) {
+    return axios.request(
+        {
+            url: '/api/admin/publisher',
+            method: 'post',
+            data:data
+        })
+}
+
 //更新出版社
 export function updatePublisherInfo(id, data) {
     return axios.request(

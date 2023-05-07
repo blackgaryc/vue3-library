@@ -22,3 +22,19 @@ export function updateItem(id, data) {
         })
 
 }
+export function getItem(id) {
+    return axios.request(
+        {
+            url: '/api/admin/bookList/' + id,
+            method: 'get',
+        })
+}
+
+export function createItem(data) {
+    return axios.request(
+        {
+            url: '/api/admin/bookList/',
+            method: 'post',
+            data: data
+        })
+}

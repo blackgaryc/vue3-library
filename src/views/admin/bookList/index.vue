@@ -37,9 +37,9 @@
                         </div>
                         <!-- 操作 -->
                         <div v-else-if="item.prop == 'tableOperations'">
-                            <el-button type="primary" size="small" @click="updateItem(scope.row.id)">
+                            <!-- <el-button type="primary" size="small" @click="updateItem(scope.row.id)">
                                 编辑
-                            </el-button>
+                            </el-button> -->
                             <el-button type="primary" size="small" @click="updateItem(scope.row.id)">
                                 查看内容
                             </el-button>
@@ -50,9 +50,9 @@
                             <el-button v-else type="success" size="small" @click="updateItem(scope.row.id)">
                                 上架
                             </el-button>
-                            <el-button type="danger" size="small" @click="updateItem(scope.row.id)">
+                            <!-- <el-button type="danger" size="small" @click="updateItem(scope.row.id)">
                                 删除
-                            </el-button>
+                            </el-button> -->
                         </div>
                         <div v-else>{{ scope.row[item.prop] }}</div>
                     </template>
