@@ -43,17 +43,17 @@
                             </el-tooltip>
                         </el-descriptions-item>
                         <el-descriptions-item label="作者">
-                            <el-link>作者1&nbsp;&nbsp;&nbsp;</el-link>
+                            <el-link>{{ book.author }}</el-link>
                         </el-descriptions-item>
 
                         <el-descriptions-item label="评分">
                             <el-rate v-model="book.rate" clearable />
                         </el-descriptions-item>
-                        <el-descriptions-item label="种类">未分类</el-descriptions-item>
-                        <el-descriptions-item label="语言">中文</el-descriptions-item>
-                        <el-descriptions-item label="ISBN10">1234567890</el-descriptions-item>
-                        <el-descriptions-item label="ISBN13">1234567890123</el-descriptions-item>
-                        <el-descriptions-item label="出版社">我是一个出版社我是一个出版社</el-descriptions-item>
+                        <el-descriptions-item label="种类">{{book.category}}</el-descriptions-item>
+                        <el-descriptions-item label="语言">{{ book.language }}</el-descriptions-item>
+                        <el-descriptions-item label="ISBN10">{{ book.isbn }}</el-descriptions-item>
+                        <el-descriptions-item label="ISBN13">{{ book.isbn13 }}</el-descriptions-item>
+                        <el-descriptions-item label="出版社">{{ book.publisher }}</el-descriptions-item>
                     </el-descriptions>
                     <div style="padding: 10px;">
                         {{ book.description }}
