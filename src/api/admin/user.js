@@ -1,10 +1,13 @@
 import axios from "axios";
 
 //列出当前用户
-export function getUserListData(page, size) {
+export function getUserListData(page, size,name) {
     let query = ''
     if (page != undefined && size != undefined) {
         query = `?page=${page}&size=${size}`
+    }
+    if(name!=undefined){
+        query += "&name="+name
     }
     return axios.get("/api/admin/user"+query)
 }

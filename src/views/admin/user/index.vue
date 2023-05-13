@@ -6,7 +6,7 @@
             <el-form-item label=" " style="width: 400px;">
                 <el-input v-model="form.name" placeholder="请输入用户昵称/账户/邮箱"/>
             </el-form-item>
-            <el-button>
+            <el-button @click="loadTableData(form.name)">
                 搜索
             </el-button>
         </el-form>
@@ -144,8 +144,8 @@ export default {
             };
             this.table.prop.push(op);
         },
-        loadTableData: function () {
-            getListData(this.table.page, this.table.size).then((res) => {
+        loadTableData: function (name) {
+            getListData(this.table.page, this.table.size,name).then((res) => {
                 this.table.data.splice(0);
                 this.table.data = res.data.data;
                 this.table.page = res.data.page;

@@ -29,9 +29,10 @@
                                 <StarFilled :color="liked ? 'read' : 'black'" />
                             </el-icon>标记喜欢
                         </div>
-                        <el-icon>
+                        <!-- <el-icon>
                             <Comment />
-                        </el-icon>0 条评论
+                        </el-icon>0 条评论 -->
+                        <el-button @click="showSelectBookList = true">添加到书单</el-button>
                     </div>
                 </el-col>
                 <el-col :xs="22" :sm="22" :md="20" :lg="4" :xl="20">
@@ -70,9 +71,20 @@
                 </el-col>
             </el-row>
         </div>
+
+        <el-dialog v-model="showSelectBookList" title="添加到书单" width="90%">
+            <el-form-item label="选择书单" prop="">
+                <el-select v-model="form.booklistId" placeholder="请选择书单">
+                    <el-option v-for="(item, index) in option.booklist" :key="index" :label="item.name"
+                        :value="item.id" />
+                </el-select>
+            </el-form-item>
+            <el-button @click="doAddBook2Booklist" style="width: 100%;">确认添加</el-button>
+        </el-dialog>
     </div>
 </template>
 <script>
+import { addBook2BookList, getUserBookList } from '@/api/user/booklist';
 import BookCard from '@/components/BookCard.vue';
 import { ElMessage } from 'element-plus';
 import 'element-plus/theme-chalk/display.css'
@@ -91,7 +103,14 @@ export default {
             defaultSizeUnit: [
                 "B", "KB", "MB", "GB"
             ],
-            selectedDownloadFile: null
+            selectedDownloadFile: null,
+            showSelectBookList: false,
+            form:{
+                booklistId:undefined
+            },
+            option: {
+                booklist: []
+            }
         };
     },
     created: function () {
@@ -123,9 +142,12 @@ export default {
                     if (this.book.file) {
                         this.selectedDownloadFile = this.book.file[0]
                     }
-                    
+
                 }
             });
+            getUserBookList().then(res => {
+                this.option.booklist = res.data.data
+            })
         },
         getBookExtensionAndSizeHumanReadable(file) {
             let count = 0;
@@ -143,6 +165,16 @@ export default {
                 } else {
                     ElMessage.error(res.data.message)
                 }
+            })
+        },
+        doAddBook2Booklist(){
+            let booklistId = this.form.booklistId
+            let bookId = this.$route.params.id;
+            addBook2BookList(booklistId,bookId).then(res=>{
+                ElMessage.success('添加成功')
+                console.log(res)
+            }).finally(()=>{
+                this.showSelectBookList = false
             })
         }
     },

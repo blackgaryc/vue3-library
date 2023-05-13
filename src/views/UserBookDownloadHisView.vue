@@ -12,21 +12,15 @@
                         <BookCard :thumbnail="scope.row.thumbnail"></BookCard>
                     </template>
                 </el-table-column>
-                <el-table-column align="right" label="操作" prop="op">
-                    <template #default="scope">
-                        <!-- <el-button size="small" type="" @click="handle(scope.row.bookId,'show')">查看</el-button> -->
-                        <el-button size="small" type="danger" @click="handle(scope.row.id,'remove')">移除</el-button>
-                    </template>
-                </el-table-column>
             </el-table>
         </div>
     </div>
 </template>
   
 <script>
-import { deleteBookInBookList } from '@/api/user/booklist'
 import BookCard from '@/components/BookCard.vue'
-import { listBookInBookList } from '../api/book-list'
+import { getUserBookDownloadHis } from '@/api/user/downloadhis'
+
 export default {
     name: 'UserBookListView',
     components: {
@@ -39,26 +33,21 @@ export default {
         }
     },
     methods: {
-        loadBookListBooks(id) {
-            listBookInBookList(id).then((res) => {
+        getUserBookDownloadHis() {
+            getUserBookDownloadHis().then((res) => {
                 this.formData = res.data.data
             })
         },
         handle(data,type){
             if(type=='remove'){
-                deleteBookInBookList(this.$route.params.id,data).then(res=>{
-                    console.log(res)
-                }).finally(()=>{
-                    this.loadBookListBooks(this.$route.params.id)
-                })
+                console.log('remove')
             }else if(type=='show'){
                 console.log('show')
             }
         }
     },
     created: function () {
-        console.log(this.$route.params.id)
-        this.loadBookListBooks(this.$route.params.id)
+        this.getUserBookDownloadHis()
     }
 }
 </script>

@@ -5,15 +5,15 @@
         <!-- 搜索 -->
         <el-form ref="form" :model="form" label-width="auto" style="display: flex;">
             <el-form-item label="公开">
-                <el-select v-model="form.region" placeholder="请选择">
-                    <el-option label="Zone one" value="shanghai" />
-                    <el-option label="Zone two" value="beijing" />
+                <el-select v-model="form.published" placeholder="请选择">
+                    <el-option label="公开" value="1" />
+                    <el-option label="私有" value="0" />
                 </el-select>
             </el-form-item>
             <el-form-item label=" " style="width: 400px;">
-                <el-input v-model="form.name" placeholder="请输入书单名称"/>
+                <el-input v-model="form.name" placeholder="请输入书单名称" />
             </el-form-item>
-            <el-button>
+            <el-button @click="reloadData(this.form)">
                 搜索
             </el-button>
         </el-form>
@@ -40,7 +40,7 @@
                             <!-- <el-button type="primary" size="small" @click="updateItem(scope.row.id)">
                                 编辑
                             </el-button> -->
-                            <el-button type="primary" size="small" @click="updateItem(scope.row.id)">
+                            <el-button type="primary" size="small" @click="updateItem(scope.row.id, 'show')">
                                 查看内容
                             </el-button>
                             <el-button v-if="scope.row.status == 1" type="danger" size="small"
@@ -76,7 +76,7 @@ export default {
     data: function () {
         return {
             title: '书单管理',
-            form:{},
+            form: {},
             table: {
                 prop: [
                     {
@@ -91,7 +91,7 @@ export default {
                             type: { '1': 'success', '2': 'danger', '3': 'danger' },
                             label: { '1': '公开', '0': '私有' },
                         }
-                    },{
+                    }, {
                         prop: 'status', label: '状态', width: '120', type: 'tag', tag: {
                             type: { '1': 'success', '2': 'danger', '3': 'danger' },
                             label: { '1': '正常', '2': '下架' },
@@ -113,8 +113,8 @@ export default {
             }
             this.table.prop.push(op)
         },
-        loadTableData: function () {
-            getListData().then((res) => {
+        loadTableData: function (form) {
+            getListData(form).then((res) => {
                 this.table.data = res.data.data
                 this.table.page = res.data.page
                 this.table.size = res.data.size
@@ -123,27 +123,33 @@ export default {
                 console.log(this.table.data)
             })
         },
-        reloadData: function () {
-            this.loadTableData()
+        reloadData: function (form) {
+            this.loadTableData(form)
         },
         deleteRow(id) {
             deleteItem(id).then(res => {
                 const data = res.data
                 const messageType = data.code == 0 ? 'success' : 'error';
                 this.$message[messageType](data.message)
-            }).finally(()=>{
+            }).finally(() => {
                 this.reloadData()
             })
-            
+
         },
-        updateItem(id) {
-            updateItem(id).then(res => {
-                const data = res.data
-                const messageType = data.code == 0 ? 'success' : 'error';
-                this.$message[messageType](data.message)
-            }).finally(()=>{
-                this.loadTableData()
-            })
+        updateItem(id, type) {
+            if (type == 'update') {
+                updateItem(id).then(res => {
+                    const data = res.data
+                    const messageType = data.code == 0 ? 'success' : 'error';
+                    this.$message[messageType](data.message)
+                }).finally(() => {
+                    this.loadTableData()
+                })
+            } else if (type == 'show') {
+                this.$router.push({ path: '/booklist/' + id })
+            }
+
+
         },
         handleBook(requestId, resut) {
             let arr = new Array

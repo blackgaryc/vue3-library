@@ -25,7 +25,7 @@
                   <el-menu-item index="/admin/book/index">图书管理</el-menu-item>
                 </el-menu-item-group>
                 <el-menu-item-group title="文件">
-                  <el-menu-item index="/admin/book/file">文件管理</el-menu-item>
+                  <!-- <el-menu-item index="/admin/book/file">文件管理</el-menu-item> -->
                   <el-menu-item index="/admin/book/file/upload">文件审核</el-menu-item>
                 </el-menu-item-group>
                 <el-menu-item-group title="分类">
@@ -40,9 +40,9 @@
               <!-- <el-menu-item index="/admin/search"><el-icon>
                   <setting />
                 </el-icon>搜索管理</el-menu-item> -->
-              <el-menu-item index="/admin/announcement"><el-icon>
+              <!-- <el-menu-item index="/admin/announcement"><el-icon>
                   <setting />
-                </el-icon>公告管理</el-menu-item>
+                </el-icon>公告管理</el-menu-item> -->
             </el-menu>
           </el-scrollbar>
         </el-aside>

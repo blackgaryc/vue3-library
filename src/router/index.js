@@ -245,6 +245,11 @@ const routes = [
     path: '/booklist/:id',
     name: 'booklist_detal',
     component: () => import(/* webpackChunkName: "about" */ '../views/UserBookListDetailView.vue'),
+  },
+  {
+    path: '/user/book/downloads',
+    name: 'book_download_his',
+    component: () => import(/* webpackChunkName: "about" */ '../views/UserBookDownloadHisView.vue'),
   }
   
 ]
