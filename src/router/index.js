@@ -230,7 +230,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "rank" */ '../views/RankingListView.vue')
   },
   {
-    path: '/user/bookFavs',
+    path: '/user/book/fav',
     name: 'book_favs',
     component: () => import(/* webpackChunkName: "rank" */ '../views/BookFavsView.vue')
   },

@@ -6,7 +6,7 @@
                 <el-table-column label="预览" type="left">
                     <template #default="scope">
                         <div style="display: flex; align-items: center">
-                            <BookCard :thumbnail="scope.row.bookImg"></BookCard>
+                            <BookCard :thumbnail="scope.row.thumbnail"></BookCard>
                         </div>
                     </template>
                 </el-table-column>
@@ -19,7 +19,7 @@
                         <!-- <el-input v-model="search" size="small" placeholder="Type to search" /> -->
                     </template>
                     <template #default="scope">
-                        <el-button size="small" type="danger" @click="handleBook(scope.row.bookId)">移除</el-button>
+                        <el-button size="small" type="danger" @click="handleBook(scope.row.book_id)">移除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -63,6 +63,8 @@ export default {
                         ElMessage.error('遇到错误,删除失败')
                     }
                 }
+            }).finally(()=>{
+                this.getFavList()
             })
         }
     },

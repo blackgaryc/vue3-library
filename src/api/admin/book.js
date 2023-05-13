@@ -1,10 +1,16 @@
 import axios from "axios";
 
 //列出所有书籍
-export function getListData(page, size) {
+export function getListData(page, size,form) {
+    console.log(form)
     let query = ''
     if (page != undefined && size != undefined) {
         query = `?page=${page}&size=${size}`
+    }
+    if(undefined !== form){
+        if(undefined !== form.name) query += `&name=${form.name}`
+        if(undefined !== form.categoryId) query += `&categoryId=${form.categoryId}`
+        if(undefined !== form.publisherId) query += `&publisherId=${form.publisherId}`
     }
     return axios.get("/api/admin/book" + query)
 }

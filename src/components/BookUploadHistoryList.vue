@@ -72,6 +72,9 @@ export default {
                     id: bookId
                 }
             })
+        },
+        reloadData(){
+            this.getHistoryBooksUploadList(this.pageSize, this.page)
         }
     },
     mounted() {

@@ -22,7 +22,7 @@
                     </template>
                 </el-upload></el-tab-pane>
             <el-tab-pane label="历史上传" name="second">
-                <BookUploadHistoryList></BookUploadHistoryList>
+                <BookUploadHistoryList ref="historyList"></BookUploadHistoryList>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -60,6 +60,8 @@ export default {
             if (0 != response.code) {
                 uploadFiles.pop();
                 ElMessage.error(response.message);
+            }else{
+                this.$refs.historyList.reloadData()
             }
         }
     },

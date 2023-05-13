@@ -123,6 +123,7 @@ export default {
                     if (this.book.file) {
                         this.selectedDownloadFile = this.book.file[0]
                     }
+                    
                 }
             });
         },

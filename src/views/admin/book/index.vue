@@ -5,19 +5,18 @@
         <!-- 搜索 -->
         <el-form ref="form" :model="form" label-width="auto" style="display: flex;">
             <el-form-item label="出版社">
-                <el-select v-model="form.region" placeholder="请选择">
-                    <el-option label="Zone two" value="beijing" />
+                <el-select v-model="form.publisherId" placeholder="请选择">
+                    <el-option v-for="item in option.publisher" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
             </el-form-item>
             <el-form-item label="分类">
-                <el-select v-model="form.region" placeholder="请选择">
-                    <el-option label="Zone two" value="beijing" />
-                </el-select>
+                <el-cascader v-model="form.categoryId" placeholder="请选择分类" :options="option.category"
+                            :show-all-levels="false" :props="{ emitPath: false }" />
             </el-form-item>
             <el-form-item label=" " style="width: 400px;">
                 <el-input v-model="form.name" placeholder="请输入书名"/>
             </el-form-item>
-            <el-button>
+            <el-button @click="searchData">
                 搜索
             </el-button>
         </el-form>
@@ -40,7 +39,7 @@
                             <el-avatar :src="scope.row[item.prop]" />
                         </div>
                         <!-- 操作 -->
-                        <div v-else-if="item.prop == 'tableOperations'">
+                        <div v-else-if="item.prop == 'tableOperations' && scope.row.status!=0">
                             <el-button type="primary" size="small" @click="editRow(scope.row.id)">
                                 编辑
                             </el-button>
@@ -74,6 +73,8 @@
 <script>
 import { getListData, deleteBook as deleteItem, updateBookInfo as updateItem,changeStatus } from '@/api/admin/book';
 import MainForm from './form/MainForm.vue';
+import { getPublisherSelectData } from '@/api/admin/publisher'
+import { getCategorySelectData } from '@/api/admin/category'
 
 export default {
     name: "bookIndex",
@@ -120,7 +121,7 @@ export default {
                         type: "tag",
                         tag: {
                             type: { "1": "success", "2": "danger", "3": "danger" },
-                            label: { "1": "正常", "2": "下架" },
+                            label: { "1": "正常", "2": "下架","0":"待审核" },
                         }
                     }
                 ],
@@ -129,6 +130,10 @@ export default {
                 size: 10,
                 totalPage: 0,
                 totalResult: 0
+            },
+            option:{
+                publisher:[],
+                category:[]
             }
         };
     },
@@ -141,9 +146,22 @@ export default {
                 type: ""
             };
             this.table.prop.push(op);
+            const that = this
+            function initPublisher() {
+                getPublisherSelectData().then(res => {
+                    that.option.publisher = res.data.data
+                })
+            }
+            function initCategory() {
+                getCategorySelectData().then(res => {
+                    that.option.category = res.data.data
+                })
+            }
+            initPublisher()
+            initCategory()
         },
-        loadTableData: function () {
-            getListData(this.table.page, this.table.size).then((res) => {
+        loadTableData: function (form) {
+            getListData(this.table.page, this.table.size,form).then((res) => {
                 this.table.data.splice(0);
                 this.table.data = res.data.data;
                 this.table.page = res.data.page;
@@ -188,6 +206,9 @@ export default {
             changeStatus(id).finally(() => {
                 this.reloadData();
             });
+        },
+        searchData(){
+            this.loadTableData(this.form);
         }
     },
     computed: {},

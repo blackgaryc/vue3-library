@@ -13,8 +13,9 @@
             <el-table :data="tableData.data" style="width: 100%">
                 <el-table-column type="expand">
                     <template #default="props">
-                        <h3>这里可以增加一些图书详情，方便检查。</h3>
-                        <p m="t-0 b-2">BookId: {{ props.row.bookId }}</p>
+                        <!-- <h3>这里可以增加一些图书详情，方便检查。</h3> -->
+                        <!-- <p m="t-0 b-2">BookId: {{ props.row.bookId }}</p> -->
+                        <el-button style="width: 100%;" @click="openNewWindow(props.row.url)">点击下载文件</el-button>
                     </template>
                 </el-table-column>
                 <el-table-column label="名称" prop="filename" />
@@ -64,6 +65,10 @@ export default {
                     ElMessage.error(res.data.message)
                 }
             })
+        },
+        openNewWindow(url){
+            console.log(url)
+            window.open(url, '_blank')
         }
     },
     computed: {
